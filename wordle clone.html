@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Guess the Word</title>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <table>
+                <tbody id="board">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="input-container">
+                <input type="text" maxlength="5" minlength="5">
+                <div class="row">
+                    <button id="button">Enter</button>
+                    <button id="restart">Restart</button>
+                </div>
+
+            </div>
+            <p id="game-over"></p>
+        </div>
+    </div>
+</body>
+<script>
+    const possibleAnswers = ['axiom', 'title', 'water', 'sloth', 'crwth', 'rhyme'];
+    let answer;
+    const board = document.getElementById('board');
+    const textBox = document.querySelector('input');
+    const submitButton = document.getElementById('button');
+    const gameOverMessage = document.getElementById('game-over');
+    const restart = document.getElementById('restart');
+    let currentGuessNumber = 0;
+
+    let lengthVar = possibleAnswers.length;
+    let g = Math.round(Math.random()*lengthVar);
+    answer = possibleAnswers[g];
+
+    restart.addEventListener('click', function(e){
+        let lengthVar = possibleAnswers.length;
+        let g = Math.round(Math.random()*lengthVar);
+        answer = possibleAnswers[g];
+        currentGuessNumber = 0;
+        gameOverMessage.textContent = "";
+    })
+
+    submitButton.addEventListener('click', function(e){
+
+        let guess = textBox.value;
+        textBox.value = "";
+        if(guess.length !== 5){
+            return //don't accept words that aren't 5 letters long
+        }
+        //todo clear the textbox once you hit submit
+
+        //render guess to the board
+        writeGuess(guess) //todo create this function
+
+        currentGuessNumber++
+
+        //todo check for win
+        if(guess.toUpperCase() === answer.toUpperCase()){
+            gameOverMessage.textContent = 'You won!!!';
+            submitButton.classList.add('hidden');
+            textBox.classList.add('hidden');
+            answer = "";
+            return;
+        }
+        //todo check for loss
+        if(currentGuessNumber >= board.children.length){
+            gameOverMessage.textContent = `LMAO XD YOU JUST TOOK A FAT L.
+            THE ANSWER WAS ${answer.toUpperCase()}`;
+            submitButton.classList.add('hidden');
+            textBox.classList.add('hidden');
+            answer = "";
+            return;
+        }
+
+        function writeGuess(guess){
+            //build our match arraw so we easily see what matches
+            let matchArray = buildMatchArray(guess) //todo create function that turns words into arrays
+
+            //identify the current tr tag
+            let currentGuessRow = board.children[currentGuessNumber];
+            //identify the columns for each letter in that row
+            let columns = currentGuessRow.children
+
+            for(let i=0; i<matchArray.length; i++){
+                //todo check each letter for green/yellow/grey backgrounds
+                let column = columns[i];
+                column.textContent = guess[i].toUpperCase();
+
+                if(matchArray[i] === 2){
+                    column.classList.add('correct');
+                }else if(matchArray[i] === 1){
+                    column.classList.add('in-word');
+                }else{
+                    column.classList.add('incorrect');
+                }
+            }
+        }
+        function buildMatchArray(guess){
+            guess = guess.toUpperCase();
+            let answerAsArray = [];
+            let matchArray = [0, 0, 0, 0, 0]; //assume no match to start
+            for(let i=0;i<answer.length;i++){
+                let letter = answer[i].toUpperCase();
+                answerAsArray.push(letter);
+            }
+            //todo find exact matches first
+            for(let i=0;i<guess.length;i++){
+                let letter = guess[i];
+                if(letter.toUpperCase() === answer[i].toUpperCase()){
+                    answerAsArray[i] = null; //remove letter to prevent matching it as yellow, too
+                    matchArray[i] = 2;
+                }
+            }
+            //todo find in-word matches and misses
+            for(let i=0;i<guess.length;i++){
+                let letter = guess[i].toUpperCase();
+                let index = answerAsArray.indexOf(letter.toUpperCase());
+
+                //if letter not in remaining letters, move on to next letter
+                if(index === -1){
+                    continue
+                }
+
+                //remove letter to prevent matching in other positions
+                answerAsArray[index] = null;
+                //mark it yellow as it is in the word but in the wrong spot
+                matchArray[i] = 1;
+            }
+            return matchArray
+        }
+    })
+</script>
+</html>
