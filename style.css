@@ -34,7 +34,7 @@ input[type="checkbox"] ~ label, input[type="radio"] ~ label {
 }
 
 body, .container, .content {
-    background:#121213;
+    background:white;
     overflow:hidden;
     font-family:"Helvetica Neue", Arial, sans-serif;
 }
@@ -61,7 +61,7 @@ td {
     box-sizing:border-box;
     text-transform:uppercase;
     user-select:none;
-    color:white;
+
     margin:2px;
 }
 
@@ -91,7 +91,6 @@ button {
 
 p {
     font-size: 32px;
-    color: white;
 }
 
 .row {
