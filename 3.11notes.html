@@ -7,44 +7,44 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <div class="row">
-                <input type="text">
-                <button id="submit">Enter</button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="incomplete">
-
-                </tbody>
-            </table>
-            <table>
-                <thead>
-                <tr>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-
-                    </th>
-                </tr>
-                </thead>
-                <tbody id="complete">
-
-                </tbody>
-            </table>
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <input type="text">
+            <button id="submit">Enter</button>
         </div>
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    Description
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            </thead>
+            <tbody id="incomplete">
+
+            </tbody>
+        </table>
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    Description
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            </thead>
+            <tbody id="complete">
+
+            </tbody>
+        </table>
     </div>
+</div>
 </body>
 <script>
     const item = document.querySelector('input');
@@ -70,28 +70,29 @@
         addItemToTable(toDoItem);
         item.value = "";
     })
-        function addItemToTable(toDoItem){
-            let newRow = document.createElement('tr');
-            let descriptionTag = document.createElement('td');
-            descriptionTag.textContent = toDoItem;
-            newRow.appendChild(descriptionTag);
-            let actionTag = document.createElement('td');
-            let action = document.createElement('button');
-            if(action.textContent==="Mark Incomplete") {
-                action.textContent = "Mark Complete";
-            }else{
-                action.textContent = "Mark Incomplete";
-            }
-            action.addEventListener('click', function(){
-                newRow.remove();
-                addItemToTable(toDoItem);
-
-
-
-            })
-            actionTag.appendChild(action);
-            newRow.appendChild(actionTag);
-            incomplete.appendChild(newRow);
+    function addItemToTable(toDoItem){
+        let newRow = document.createElement('tr');
+        let descriptionTag = document.createElement('td');
+        descriptionTag.textContent = toDoItem;
+        newRow.appendChild(descriptionTag);
+        let actionTag = document.createElement('td');
+        let action = document.createElement('button');
+        if(action.textContent==="Mark Incomplete") {
+            action.textContent = "Mark Complete";
+        }else{
+            action.textContent = "Mark Incomplete";
         }
+        action.addEventListener('click', function(){
+            newRow.remove();
+            addItemToTable(toDoItem);
+
+
+
+        })
+        actionTag.appendChild(action);
+        newRow.appendChild(actionTag);
+        incomplete.appendChild(newRow);
+    }
 </script>
 </html>
+
