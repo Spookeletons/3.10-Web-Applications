@@ -98,6 +98,8 @@
         let lengthVar = possibleAnswers.length;
         let g = Math.round(Math.random()*lengthVar);
         answer = possibleAnswers[g];
+        submitButton.classList.remove('hidden');
+        textBox.classList.remove('hidden');
         currentGuessNumber = 0;
         gameOverMessage.textContent = "";
     })
@@ -135,7 +137,7 @@
         }
 
         function writeGuess(guess){
-            //build our match arraw so we easily see what matches
+            //build our match arrow so we easily see what matches
             let matchArray = buildMatchArray(guess) //todo create function that turns words into arrays
 
             //identify the current tr tag
@@ -147,6 +149,10 @@
                 //todo check each letter for green/yellow/grey backgrounds
                 let column = columns[i];
                 column.textContent = guess[i].toUpperCase();
+                restart.addEventListener('click', function(e){
+                    column.textContent = "";
+                    column.classList.remove('correct','in-word','incorrect');
+                })
 
                 if(matchArray[i] === 2){
                     column.classList.add('correct');
@@ -164,6 +170,9 @@
             for(let i=0;i<answer.length;i++){
                 let letter = answer[i].toUpperCase();
                 answerAsArray.push(letter);
+                restart.addEventListener('click', function(e){
+                    letter = "";
+                })
             }
             //todo find exact matches first
             for(let i=0;i<guess.length;i++){
