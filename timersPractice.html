@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timers</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .green {
+            background-color:green;
+        }
+        .red {
+            background-color:red;
+        }
+        .orange {
+            background-color:orange;
+        }
+        .purple {
+            background-color:purple;
+        }
+        .blue {
+            background-color:blue;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <button id="remove">Remove</button>
+        <div class="colors" style="width:200px;height:150px;">
+            <button id="colorChange">Change colors</button>
+            <button id="stop">Stop color change</button>
+        </div>
+    </div>
+</div>
+<script>
+    const removeButton = document.getElementById('remove');
+    const colorStart = document.getElementById('colorChange');
+    const colorStop = document.getElementById('stop');
+    const colors = document.getElementsByClassName('colors');
+    let repeat;
+    let lastColor;
+    const colorList = ['red', 'green', 'blue', 'purple', 'orange'];
+
+    removeButton.addEventListener('click', function(e){
+        setTimeout(function(){
+            removeButton.remove();
+        }, 3000);
+    })
+
+    colorStart.addEventListener('click', function(e){
+        if(!repeat){
+
+            repeat = setInterval(function(){
+                let random = Math.floor(Math.random()*colorList.length);
+                let color = colorList[random];
+
+
+                let newColor;
+                if(color === 'green'){
+                    newColor = 'green';
+                }
+                if(color === 'purple'){
+                    newColor = 'purple';
+                }
+                if(color === 'blue'){
+                    newColor = 'blue';
+                }
+                if(color === 'orange'){
+                    newColor = 'orange';
+                }
+                if(color === 'red'){
+                    newColor = 'red';
+                }
+                colors.classList.remove(lastColor);
+                colors.classList.add(newColor);
+                lastColor = newColor;
+
+
+                console.log(color);
+            }, 1000);
+        }
+    })
+    colorStop.addEventListener('click', function(e){
+        if(repeat){
+            clearInterval(repeat);
+            repeat = null;
+        }
+    })
+
+
+</script>
+</body>
+</html>
