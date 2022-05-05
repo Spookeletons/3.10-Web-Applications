@@ -26,7 +26,7 @@
 <div class="container">
     <div class="content">
         <button id="remove">Remove</button>
-        <div class="colors" style="width:200px;height:150px;">
+        <div id="colors" style="width:200px;height:150px;">
             <button id="colorChange">Change colors</button>
             <button id="stop">Stop color change</button>
         </div>
@@ -36,7 +36,7 @@
     const removeButton = document.getElementById('remove');
     const colorStart = document.getElementById('colorChange');
     const colorStop = document.getElementById('stop');
-    const colors = document.getElementsByClassName('colors');
+    const colors = document.getElementById('colors');
     let repeat;
     let lastColor;
     const colorList = ['red', 'green', 'blue', 'purple', 'orange'];
@@ -54,29 +54,41 @@
                 let random = Math.floor(Math.random()*colorList.length);
                 let color = colorList[random];
 
+                if(lastColor === 'green'){
+                    colors.classList.remove('green');
+                }
+                if(lastColor === 'purple'){
+                    colors.classList.remove('purple');
+                }
+                if(lastColor === 'blue'){
+                    colors.classList.remove('blue');
+                }
+                if(lastColor === 'orange'){
+                    colors.classList.remove('orange');
+                }
+                if(lastColor === 'red'){
+                    colors.classList.remove('red');
+                }
 
-                let newColor;
+
+
+
                 if(color === 'green'){
-                    newColor = 'green';
+                    colors.classList.add('green');
                 }
                 if(color === 'purple'){
-                    newColor = 'purple';
+                    colors.classList.add(newColor = 'purple');
                 }
                 if(color === 'blue'){
-                    newColor = 'blue';
+                    colors.classList.add(newColor = 'blue');
                 }
                 if(color === 'orange'){
-                    newColor = 'orange';
+                    colors.classList.add(newColor = 'orange');
                 }
                 if(color === 'red'){
-                    newColor = 'red';
+                    colors.classList.add(newColor = 'red');
                 }
-                colors.classList.remove(lastColor);
-                colors.classList.add(newColor);
                 lastColor = newColor;
-
-
-                console.log(color);
             }, 1000);
         }
     })
