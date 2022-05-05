@@ -74,22 +74,27 @@
 
 
                 if(color === 'green'){
+                    newColor = 'green';
                     colors.classList.add('green');
                 }
                 if(color === 'purple'){
-                    colors.classList.add(newColor = 'purple');
+                    newColor = 'purple';
+                    colors.classList.add('purple');
                 }
                 if(color === 'blue'){
-                    colors.classList.add(newColor = 'blue');
+                    newColor = 'blue';
+                    colors.classList.add('blue');
                 }
                 if(color === 'orange'){
-                    colors.classList.add(newColor = 'orange');
+                    newColor = 'orange';
+                    colors.classList.add('orange');
                 }
                 if(color === 'red'){
-                    colors.classList.add(newColor = 'red');
+                    newColor = 'red';
+                    colors.classList.add('red');
                 }
                 lastColor = newColor;
-            }, 1000);
+            }, 5000);
         }
     })
     colorStop.addEventListener('click', function(e){
